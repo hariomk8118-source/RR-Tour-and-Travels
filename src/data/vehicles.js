@@ -1,6 +1,6 @@
-export const PHONE = '9262920519';
-export const PHONE_LINK = 'tel:+919262920519';
-export const WHATSAPP_LINK = 'https://wa.me/919262920519';
+export const PHONE = '6204821204';
+export const PHONE_LINK = 'tel:+916204821204';
+export const WHATSAPP_LINK = 'https://wa.me/916204821204';
 
 export const cars = [
   {
