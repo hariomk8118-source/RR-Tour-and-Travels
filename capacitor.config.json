@@ -1,0 +1,8 @@
+{
+  "appId": "com.rr.tourandtravels",
+  "appName": "RR Tour&Travels",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

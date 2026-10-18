@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { PHONE, PHONE_LINK } from '../data/vehicles';
 
 export default function Header() {
+  const [open, setOpen] = useState(false);
+
   return (
     <header className="header">
       <div className="container header-inner">
@@ -10,15 +13,25 @@ export default function Header() {
             .Tour<span className="brand-amp">&amp;</span>Travels
           </span>
         </a>
-        <nav className="nav">
-          <a href="#home">Home</a>
-          <a href="#fleet">Fleet</a>
-          <a href="#booking">Booking</a>
-          <a href="#contact">Contact</a>
+        <nav className={`nav ${open ? 'nav-open' : ''}`}>
+          <a href="#home" onClick={() => setOpen(false)}>Home</a>
+          <a href="#fleet" onClick={() => setOpen(false)}>Fleet</a>
+          <a href="#booking" onClick={() => setOpen(false)}>Booking</a>
+          <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
+          <a href={PHONE_LINK} className="btn btn-call nav-call" onClick={() => setOpen(false)}>
+            <PhoneIcon /> {PHONE}
+          </a>
         </nav>
-        <a href={PHONE_LINK} className="btn btn-call">
+        <a href={PHONE_LINK} className="btn btn-call desktop-call">
           <PhoneIcon /> {PHONE}
         </a>
+        <button
+          className={`hamburger ${open ? 'hamburger-open' : ''}`}
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
+        >
+          <span /><span /><span />
+        </button>
       </div>
     </header>
   );
