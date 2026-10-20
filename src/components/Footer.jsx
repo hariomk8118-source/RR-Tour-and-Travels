@@ -1,5 +1,6 @@
 import { PHONES, WHATSAPP_LINK } from '../data/vehicles';
 import { PhoneIcon, WhatsAppIcon } from './Header';
+import logoImg from '../CarImage/logo.webp';
 
 const year = new Date().getFullYear();
 
@@ -9,7 +10,7 @@ export default function Footer() {
       <div className="container footer-grid">
         <div>
           <div className="brand footer-brand">
-            <span className="brand-badge">RR</span>
+            <img src={logoImg} alt="RR.Tour&Travels" className="brand-logo" />
             <span className="brand-name">.Tour<span className="brand-amp">&amp;</span>Travels</span>
           </div>
           <p className="footer-text">

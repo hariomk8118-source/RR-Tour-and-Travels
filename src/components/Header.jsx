@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { PRIMARY_PHONE } from '../data/vehicles';
+import logoImg from '../CarImage/logo.webp';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -8,7 +9,7 @@ export default function Header() {
     <header className="header">
       <div className="container header-inner">
         <a href="#home" className="brand">
-          <span className="brand-badge">RR</span>
+          <img src={logoImg} alt="RR.Tour&Travels" className="brand-logo" />
           <span className="brand-name">
             .Tour<span className="brand-amp">&amp;</span>Travels
           </span>
