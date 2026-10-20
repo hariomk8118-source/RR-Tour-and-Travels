@@ -168,27 +168,9 @@
 
 /* ---------- Hero ---------- */
 .hero {
-  background-color: var(--navy);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 380px;
-  background-blend-mode: soft-light;
-  position: relative;
+  background: none;
   color: var(--white);
   padding: 72px 0;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: transparent;
-  z-index: 0;
-}
-
-.hero .container {
-  position: relative;
-  z-index: 1;
 }
 
 .hero-inner {

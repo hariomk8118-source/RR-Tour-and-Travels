@@ -1,10 +1,9 @@
 import { PHONES, WHATSAPP_LINK } from '../data/vehicles';
 import { PhoneIcon, WhatsAppIcon } from './Header';
-import heroBg from '../CarImage/logo.webp';
 
 export default function Hero() {
   return (
-    <section id="home" className="hero" style={{ backgroundImage: `url(${heroBg})` }}>
+    <section id="home" className="hero">
       <div className="container hero-inner">
         <div className="hero-text">
           <p className="hero-tag">Bus &amp; Car Rental Service</p>
