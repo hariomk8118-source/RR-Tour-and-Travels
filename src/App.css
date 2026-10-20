@@ -207,12 +207,38 @@
   gap: 12px;
 }
 
+.hero-phones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.hero-phone-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.hero-phone-link:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
 .hero-points {
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
   list-style: none;
-  margin-top: 28px;
+  margin-top: 18px;
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.9rem;
 }
@@ -291,12 +317,20 @@
 
 .card-visual {
   background: linear-gradient(135deg, var(--navy), var(--navy-light));
-  padding: 26px 30px 10px;
+  padding: 0;
+  overflow: hidden;
 }
 
 .card-visual svg {
   width: 100%;
   height: auto;
+}
+
+.card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
 }
 
 .bus-visual {

@@ -12,7 +12,7 @@ export default function Fleet() {
           {cars.map((car) => (
             <article key={car.id} className="card">
               <div className="card-visual">
-                <CarIcon />
+                <img src={car.image} alt={car.name} className="card-img" />
               </div>
               <div className="card-body">
                 <div className="card-head">
@@ -68,18 +68,6 @@ export default function Fleet() {
         </div>
       </div>
     </section>
-  );
-}
-
-function CarIcon() {
-  return (
-    <svg viewBox="0 0 200 90" aria-hidden="true">
-      <path d="M30 55c0-4 3-8 8-9l28-4 18-16c4-3 9-5 14-5h34c7 0 13 3 17 8l14 17 20 4c6 1 10 6 10 12v8H30v-15z" fill="#fff" opacity="0.9" />
-      <circle cx="65" cy="70" r="13" fill="#0b1f3a" />
-      <circle cx="65" cy="70" r="5" fill="#fff" />
-      <circle cx="150" cy="70" r="13" fill="#0b1f3a" />
-      <circle cx="150" cy="70" r="5" fill="#fff" />
-    </svg>
   );
 }
 

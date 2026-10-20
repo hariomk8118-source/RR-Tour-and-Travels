@@ -1,4 +1,4 @@
-import { PHONE, PHONE_LINK, WHATSAPP_LINK } from '../data/vehicles';
+import { PHONES, WHATSAPP_LINK } from '../data/vehicles';
 import { PhoneIcon, WhatsAppIcon } from './Header';
 
 export default function Hero() {
@@ -19,9 +19,16 @@ export default function Hero() {
             <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="btn btn-whatsapp">
               <WhatsAppIcon /> WhatsApp Us
             </a>
-            <a href={PHONE_LINK} className="btn btn-outline">
-              <PhoneIcon /> {PHONE}
+            <a href={PHONES[0].link} className="btn btn-outline">
+              <PhoneIcon /> Call Us
             </a>
+          </div>
+          <div className="hero-phones">
+            {PHONES.map((p) => (
+              <a key={p.number} href={p.link} className="hero-phone-link">
+                <PhoneIcon /> {p.number}
+              </a>
+            ))}
           </div>
           <ul className="hero-points">
             <li>24x7 Service</li>

@@ -1,4 +1,4 @@
-import { PHONE, PHONE_LINK, WHATSAPP_LINK } from '../data/vehicles';
+import { PHONES, WHATSAPP_LINK } from '../data/vehicles';
 import { PhoneIcon, WhatsAppIcon } from './Header';
 
 const year = new Date().getFullYear();
@@ -28,9 +28,11 @@ export default function Footer() {
         <div>
           <h4>Contact Us</h4>
           <ul className="footer-links">
-            <li>
-              <a href={PHONE_LINK}><PhoneIcon /> {PHONE}</a>
-            </li>
+            {PHONES.map((p) => (
+              <li key={p.number}>
+                <a href={p.link}><PhoneIcon /> {p.number}</a>
+              </li>
+            ))}
             <li>
               <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer"><WhatsAppIcon /> WhatsApp Us</a>
             </li>

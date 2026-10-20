@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PHONE, PHONE_LINK } from '../data/vehicles';
+import { PRIMARY_PHONE } from '../data/vehicles';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -18,12 +18,12 @@ export default function Header() {
           <a href="#fleet" onClick={() => setOpen(false)}>Fleet</a>
           <a href="#booking" onClick={() => setOpen(false)}>Booking</a>
           <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
-          <a href={PHONE_LINK} className="btn btn-call nav-call" onClick={() => setOpen(false)}>
-            <PhoneIcon /> {PHONE}
+          <a href={PRIMARY_PHONE.link} className="btn btn-call nav-call" onClick={() => setOpen(false)}>
+            <PhoneIcon /> {PRIMARY_PHONE.number}
           </a>
         </nav>
-        <a href={PHONE_LINK} className="btn btn-call desktop-call">
-          <PhoneIcon /> {PHONE}
+        <a href={PRIMARY_PHONE.link} className="btn btn-call desktop-call">
+          <PhoneIcon /> {PRIMARY_PHONE.number}
         </a>
         <button
           className={`hamburger ${open ? 'hamburger-open' : ''}`}

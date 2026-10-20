@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { cars, buses, WHATSAPP_LINK, PHONE, PHONE_LINK } from '../data/vehicles';
+import { cars, buses, WHATSAPP_LINK, PHONES } from '../data/vehicles';
 import { PhoneIcon, WhatsAppIcon } from './Header';
 
 const initial = {
@@ -44,9 +44,11 @@ export default function BookingForm() {
             Fill the form and we&apos;ll confirm your booking on WhatsApp, or call us directly.
           </p>
           <div className="booking-contact">
-            <a href={PHONE_LINK} className="btn btn-primary">
-              <PhoneIcon /> Call {PHONE}
-            </a>
+            {PHONES.map((p) => (
+              <a key={p.number} href={p.link} className="btn btn-primary">
+                <PhoneIcon /> {p.number}
+              </a>
+            ))}
             <a href={WHATSAPP_LINK} target="_blank" rel="noreferrer" className="btn btn-whatsapp">
               <WhatsAppIcon /> WhatsApp
             </a>
