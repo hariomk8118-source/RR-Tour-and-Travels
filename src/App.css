@@ -168,7 +168,10 @@
 
 /* ---------- Hero ---------- */
 .hero {
-  background: none;
+  background-color: var(--navy);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 420px;
   color: var(--white);
   padding: 72px 0;
 }
