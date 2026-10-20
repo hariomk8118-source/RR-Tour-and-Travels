@@ -11,8 +11,8 @@ export default function Hero() {
             Travel Comfortably with <span>RR.Tour&amp;Travels</span>
           </h1>
           <p className="hero-sub">
-            Book cars and buses for outstation trips, local sightseeing, weddings and
-            airport transfers. Clean vehicles, experienced drivers, best prices.
+            Book cars and buses in <strong>Bariatu, Ranchi</strong> for outstation trips, local sightseeing,
+            weddings and airport transfers. Clean vehicles, experienced drivers, best prices.
           </p>
           <div className="hero-cta">
             <a href="#booking" className="btn btn-primary">Book Now</a>

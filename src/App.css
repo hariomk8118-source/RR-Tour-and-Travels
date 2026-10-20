@@ -512,6 +512,12 @@
   max-width: 340px;
 }
 
+.footer-address {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
 .footer h4 {
   margin-bottom: 12px;
   color: var(--amber);

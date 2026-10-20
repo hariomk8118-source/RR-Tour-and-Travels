@@ -13,9 +13,10 @@ export default function Footer() {
             <span className="brand-name">.Tour<span className="brand-amp">&amp;</span>Travels</span>
           </div>
           <p className="footer-text">
-            Your trusted partner for comfortable bus and car journeys — outstation,
-            local, weddings and airport transfers.
+            Your trusted partner for comfortable bus and car journeys in Bariatu, Ranchi —
+            outstation, local, weddings and airport transfers across Jharkhand.
           </p>
+          <p className="footer-address">Bariatu, Ranchi, Jharkhand 834009</p>
         </div>
         <div>
           <h4>Quick Links</h4>
