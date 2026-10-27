@@ -13,8 +13,7 @@ const routeData = [
   { from: 'Ranchi', to: 'Kolkata', km: 400, time: '7-8 hrs' },
   { from: 'Ranchi', to: 'Varanasi', km: 420, time: '8-9 hrs' },
   { from: 'Ranchi', to: 'Gaya', km: 280, time: '5-6 hrs' },
-  { from: 'Ranchi', to: 'Birsa Munda Airport', km: 7, time: '20 min' },
-  { from: 'Bariatu', to: 'Ranchi Railway Station', km: 5, time: '15 min' },
+
   { from: 'Ranchi', to: 'Netarhat', km: 155, time: '4-5 hrs' },
 ];
 
