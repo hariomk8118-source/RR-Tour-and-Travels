@@ -3,7 +3,9 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Fleet from './components/Fleet';
 import BookingForm from './components/BookingForm';
+import Routes from './components/Routes';
 import Feedback from './components/Feedback';
+import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 
 const services = [
@@ -31,7 +33,9 @@ export default function App() {
         </section>
         <Fleet />
         <BookingForm />
+        <Routes />
         <Feedback />
+        <FAQ />
       </main>
       <Footer />
     </>

@@ -495,6 +495,180 @@
   font-size: 1rem;
 }
 
+/* ---------- Routes ---------- */
+.routes {
+  padding: 64px 0;
+}
+
+.routes-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #e5eaf1;
+  box-shadow: 0 4px 14px rgba(11, 31, 58, 0.07);
+}
+
+.routes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.routes-table th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.routes-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eef1f5;
+  white-space: nowrap;
+}
+
+.routes-table tbody tr:hover {
+  background: rgba(245, 166, 35, 0.06);
+}
+
+.route-name {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.btn-book-route {
+  background: var(--amber);
+  color: var(--navy);
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-book-route:hover {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.routes-note {
+  text-align: center;
+  color: var(--grey);
+  font-size: 0.82rem;
+  margin-top: 16px;
+  font-style: italic;
+}
+
+.routes-services {
+  margin-top: 48px;
+}
+
+.routes-services h3 {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.routes-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.route-service {
+  background: var(--grey-light);
+  border-radius: 12px;
+  padding: 22px;
+  border-left: 4px solid var(--amber);
+}
+
+.route-service h4 {
+  margin-bottom: 6px;
+  color: var(--navy);
+}
+
+.route-service p {
+  color: var(--grey);
+  font-size: 0.9rem;
+}
+
+/* ---------- FAQ ---------- */
+.faq {
+  padding: 64px 0;
+  background: var(--grey-light);
+}
+
+.faq-list {
+  max-width: 750px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-item {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid #e5eaf1;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(11, 31, 58, 0.05);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.faq-question:hover {
+  color: var(--amber-dark);
+}
+
+.faq-icon {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--amber);
+  flex-shrink: 0;
+}
+
+.faq-answer {
+  padding: 0 20px 16px;
+  color: var(--grey);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.faq-open {
+  border-color: var(--amber);
+}
+
+@media (max-width: 640px) {
+  .routes-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .routes-table {
+    font-size: 0.82rem;
+  }
+
+  .routes-table th,
+  .routes-table td {
+    padding: 10px 10px;
+  }
+}
+
 /* ---------- Feedback ---------- */
 .feedback {
   padding: 64px 0;
