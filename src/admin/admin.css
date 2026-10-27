@@ -1,14 +1,5 @@
 /* ---------- Admin Panel ---------- */
-:root {
-  --navy: #0b1f3a;
-  --navy-light: #16305a;
-  --amber: #f5a623;
-  --amber-dark: #d4880f;
-  --green: #25d366;
-  --white: #ffffff;
-  --grey: #6b7a8f;
-  --grey-light: #f4f6f9;
-}
+/* Uses global .btn, .btn-primary, .btn-whatsapp, .btn-outline, .brand-badge from App.css */
 
 /* Login */
 .admin-login-wrap {
@@ -34,14 +25,9 @@
   margin-bottom: 16px;
 }
 
-.brand-badge {
-  background: var(--amber);
-  color: var(--navy);
-  border-radius: 8px;
-  padding: 6px 14px;
-  font-weight: 800;
+.admin-login-logo .brand-badge {
   font-size: 1.2rem;
-  display: inline-block;
+  padding: 6px 14px;
 }
 
 .admin-login-form h2 {
@@ -118,42 +104,12 @@
   gap: 10px;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 11px 22px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  border: none;
+.admin-login-form button,
+.admin-dashboard button,
+.bill-gen button,
+.bill-preview button {
   cursor: pointer;
   font-family: inherit;
-}
-
-.btn-primary {
-  background: var(--amber);
-  color: var(--navy);
-}
-
-.btn-primary:hover {
-  background: var(--amber-dark);
-}
-
-.btn-whatsapp {
-  background: var(--green);
-  color: var(--white);
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--white);
-  border: 1.5px solid rgba(255, 255, 255, 0.5);
-}
-
-.btn-outline:hover {
-  border-color: var(--white);
 }
 
 .btn-sm {

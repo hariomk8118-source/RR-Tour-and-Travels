@@ -42,6 +42,7 @@ export default function Footer() {
       </div>
       <div className="footer-bottom">
         <p>&copy; {year} RR.Tour&amp;Travels. All rights reserved.</p>
+        <a href="/admin" className="footer-admin-link">Admin</a>
       </div>
     </footer>
   );

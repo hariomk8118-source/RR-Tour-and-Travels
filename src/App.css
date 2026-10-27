@@ -871,6 +871,17 @@
   font-size: 0.85rem;
 }
 
+.footer-admin-link {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.footer-admin-link:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 /* ---------- Responsive: Tablet ---------- */
 @media (max-width: 860px) {
   .hero-inner,
