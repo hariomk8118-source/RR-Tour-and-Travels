@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Fleet from './components/Fleet';
 import BookingForm from './components/BookingForm';
+import Feedback from './components/Feedback';
 import Footer from './components/Footer';
 
 const services = [
@@ -30,6 +31,7 @@ export default function App() {
         </section>
         <Fleet />
         <BookingForm />
+        <Feedback />
       </main>
       <Footer />
     </>

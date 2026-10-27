@@ -17,6 +17,7 @@ export default function Header() {
           <a href="#home" onClick={() => setOpen(false)}>Home</a>
           <a href="#fleet" onClick={() => setOpen(false)}>Fleet</a>
           <a href="#booking" onClick={() => setOpen(false)}>Booking</a>
+          <a href="#feedback" onClick={() => setOpen(false)}>Reviews</a>
           <a href="#contact" onClick={() => setOpen(false)}>Contact</a>
           <a href={PRIMARY_PHONE.link} className="btn btn-call nav-call" onClick={() => setOpen(false)}>
             <PhoneIcon /> {PRIMARY_PHONE.number}
