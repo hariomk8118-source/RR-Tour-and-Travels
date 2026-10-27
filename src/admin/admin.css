@@ -467,6 +467,13 @@
   margin-top: 10px;
 }
 
+.bill-msg {
+  text-align: center;
+  color: var(--grey);
+  font-size: 0.85rem;
+  margin-top: 14px;
+}
+
 .bill-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
