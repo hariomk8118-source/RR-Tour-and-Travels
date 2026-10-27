@@ -42,8 +42,8 @@ export default function Routes() {
                 <th>Route</th>
                 <th>Distance</th>
                 <th>Time</th>
-                <th>Sedan ₹12/km</th>
-                <th>SUV ₹14/km</th>
+                <th>Sedan</th>
+                <th>SUV</th>
                 <th>Book</th>
               </tr>
             </thead>
