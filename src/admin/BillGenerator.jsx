@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { createBill } from './api';
 
 const vehicles = [
   'Toyota Crysta', 'Innova Hycross', 'Maruti Ertiga',
@@ -28,8 +27,6 @@ const emptyForm = {
 
 export default function BillGenerator({ onBillCreated }) {
   const [form, setForm] = useState(emptyForm);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -42,31 +39,24 @@ export default function BillGenerator({ onBillCreated }) {
   const totalAmount = baseAmount + extra - disc;
   const balanceDue = totalAmount - advance;
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    setError('');
-    setLoading(true);
-    try {
-      const bill = await createBill({
-        ...form,
-        baseAmount,
-        totalAmount,
-        advancePaid: advance,
-        balanceDue,
-      });
-      setForm(emptyForm);
-      onBillCreated(bill);
-    } catch {
-      setError('Failed to create bill. Try again.');
-    } finally {
-      setLoading(false);
-    }
+    const bill = {
+      ...form,
+      baseAmount,
+      totalAmount,
+      advancePaid: advance,
+      balanceDue,
+      billNo: `RR-${Date.now().toString(36).toUpperCase()}`,
+      createdAt: new Date().toISOString(),
+    };
+    setForm(emptyForm);
+    onBillCreated(bill);
   };
 
   return (
     <div className="bill-gen">
       <h3>Generate New Bill</h3>
-      {error && <p className="admin-error">{error}</p>}
       <form className="bill-form" onSubmit={submit}>
         <fieldset>
           <legend>Customer Details</legend>
@@ -184,8 +174,8 @@ export default function BillGenerator({ onBillCreated }) {
           <textarea name="notes" value={form.notes} onChange={update} rows="2" placeholder="Any additional notes..." />
         </div>
 
-        <button type="submit" className="btn btn-primary bill-submit" disabled={loading}>
-          {loading ? 'Creating...' : 'Generate Bill'}
+        <button type="submit" className="btn btn-primary bill-submit">
+          Generate Bill
         </button>
       </form>
     </div>
