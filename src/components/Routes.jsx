@@ -1,19 +1,30 @@
 import { WHATSAPP_LINK } from '../data/vehicles';
 
-const routes = [
-  { from: 'Ranchi', to: 'Patna', distance: '330 km', time: '6-7 hrs', sedan: '3,500', suv: '5,500' },
-  { from: 'Ranchi', to: 'Jamshedpur', distance: '130 km', time: '2.5 hrs', sedan: '1,800', suv: '2,800' },
-  { from: 'Ranchi', to: 'Dhanbad', distance: '170 km', time: '3-4 hrs', sedan: '2,200', suv: '3,500' },
-  { from: 'Ranchi', to: 'Bokaro', distance: '120 km', time: '2.5 hrs', sedan: '1,600', suv: '2,500' },
-  { from: 'Ranchi', to: 'Deoghar', distance: '250 km', time: '5-6 hrs', sedan: '3,000', suv: '4,500' },
-  { from: 'Ranchi', to: 'Hazaribagh', distance: '100 km', time: '2 hrs', sedan: '1,400', suv: '2,200' },
-  { from: 'Ranchi', to: 'Kolkata', distance: '400 km', time: '7-8 hrs', sedan: '5,000', suv: '7,500' },
-  { from: 'Ranchi', to: 'Varanasi', distance: '420 km', time: '8-9 hrs', sedan: '5,500', suv: '8,000' },
-  { from: 'Ranchi', to: 'Gaya', distance: '280 km', time: '5-6 hrs', sedan: '3,200', suv: '5,000' },
-  { from: 'Ranchi', to: 'Birsa Munda Airport', distance: '7 km', time: '20 min', sedan: '500', suv: '800' },
-  { from: 'Bariatu', to: 'Ranchi Railway Station', distance: '5 km', time: '15 min', sedan: '300', suv: '500' },
-  { from: 'Ranchi', to: 'Netarhat', distance: '155 km', time: '4-5 hrs', sedan: '2,500', suv: '3,800' },
+const SEDAN_RATE = 12; // per km
+const SUV_RATE = 14; // per km
+
+const routeData = [
+  { from: 'Ranchi', to: 'Patna', km: 330, time: '6-7 hrs' },
+  { from: 'Ranchi', to: 'Jamshedpur', km: 130, time: '2.5 hrs' },
+  { from: 'Ranchi', to: 'Dhanbad', km: 170, time: '3-4 hrs' },
+  { from: 'Ranchi', to: 'Bokaro', km: 120, time: '2.5 hrs' },
+  { from: 'Ranchi', to: 'Deoghar', km: 250, time: '5-6 hrs' },
+  { from: 'Ranchi', to: 'Hazaribagh', km: 100, time: '2 hrs' },
+  { from: 'Ranchi', to: 'Kolkata', km: 400, time: '7-8 hrs' },
+  { from: 'Ranchi', to: 'Varanasi', km: 420, time: '8-9 hrs' },
+  { from: 'Ranchi', to: 'Gaya', km: 280, time: '5-6 hrs' },
+  { from: 'Ranchi', to: 'Birsa Munda Airport', km: 7, time: '20 min' },
+  { from: 'Bariatu', to: 'Ranchi Railway Station', km: 5, time: '15 min' },
+  { from: 'Ranchi', to: 'Netarhat', km: 155, time: '4-5 hrs' },
 ];
+
+const fmt = (n) => n.toLocaleString('en-IN');
+const routes = routeData.map((r) => ({
+  ...r,
+  distance: `${r.km} km`,
+  sedan: fmt(r.km * SEDAN_RATE),
+  suv: fmt(r.km * SUV_RATE),
+}));
 
 export default function Routes() {
   return (
@@ -31,8 +42,8 @@ export default function Routes() {
                 <th>Route</th>
                 <th>Distance</th>
                 <th>Time</th>
-                <th>Sedan (Dzire)</th>
-                <th>SUV (Crysta/Scorpio)</th>
+                <th>Sedan ₹12/km</th>
+                <th>SUV ₹14/km</th>
                 <th>Book</th>
               </tr>
             </thead>
