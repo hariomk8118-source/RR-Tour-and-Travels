@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const WHATSAPP_BASE = 'https://wa.me/91';
 
@@ -10,6 +10,11 @@ function formatDate(d) {
 export default function BillPreview({ bill, onClose }) {
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
+
+  // Preload PDF module + logo so sharing stays inside the tap gesture window
+  useEffect(() => {
+    import('./pdf').then((m) => m.warmupPdf());
+  }, []);
 
   if (!bill) return null;
 
@@ -26,8 +31,10 @@ export default function BillPreview({ bill, onClose }) {
         window.open(`${WHATSAPP_BASE}${phone}?text=${encodeURIComponent(text)}`, '_blank');
         setMsg('PDF downloaded. Attach it in the WhatsApp chat that just opened.');
       }
-    } catch {
-      setMsg('Could not share. Try Download instead.');
+    } catch (err) {
+      if (err?.name !== 'AbortError') {
+        setMsg('Could not share. Try Download instead.');
+      }
     } finally {
       setBusy(false);
     }

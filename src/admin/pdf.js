@@ -18,14 +18,32 @@ function loadImage(src) {
 
 async function fadedLogo(alpha = 0.08) {
   const img = await loadImage('/icons/Logo.png');
-  const size = Math.min(img.width, img.height);
+  const size = Math.min(img.width, img.height, 600); // cap size for mobile canvas limits + smaller PDFs
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, size, size);
   ctx.globalAlpha = alpha;
   ctx.drawImage(img, 0, 0, size, size);
-  return { data: canvas.toDataURL('image/png'), ratio: size / size };
+  return { data: canvas.toDataURL('image/jpeg', 0.9) };
+}
+
+let logoPromise;
+function getLogo() {
+  if (!logoPromise) {
+    logoPromise = fadedLogo(0.22).catch(() => {
+      logoPromise = null; // retry next time instead of caching failure
+      return null;
+    });
+  }
+  return logoPromise;
+}
+
+// Call on mount so the logo is cached before the user taps share
+export function warmupPdf() {
+  getLogo();
 }
 
 export async function buildBillPdf(bill) {
@@ -36,9 +54,11 @@ export async function buildBillPdf(bill) {
 
   // Watermark logo (faded, centered)
   try {
-    const logo = await fadedLogo(0.22);
-    const w = 120;
-    doc.addImage(logo.data, 'PNG', (W - w) / 2, 85, w, w);
+    const logo = await getLogo();
+    if (logo) {
+      const w = 120;
+      doc.addImage(logo.data, 'JPEG', (W - w) / 2, 85, w, w);
+    }
   } catch { /* logo optional */ }
 
   // Header bar
