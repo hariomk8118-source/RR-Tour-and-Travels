@@ -36,7 +36,7 @@ export async function buildBillPdf(bill) {
 
   // Watermark logo (faded, centered)
   try {
-    const logo = await fadedLogo(0.08);
+    const logo = await fadedLogo(0.22);
     const w = 120;
     doc.addImage(logo.data, 'PNG', (W - w) / 2, 85, w, w);
   } catch { /* logo optional */ }
@@ -113,7 +113,7 @@ export async function buildBillPdf(bill) {
   y += 2;
   doc.setDrawColor(11, 31, 58);
   doc.setLineWidth(0.8);
-  doc.line(L, y - 3, R, y - 3);
+  doc.line(L, y - 5, R, y - 5);
   row('Total Amount', fmt(bill.totalAmount), true);
   row('Advance Paid', fmt(bill.advancePaid));
   doc.setFont('helvetica', 'bold');
