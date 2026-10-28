@@ -123,51 +123,69 @@ export async function buildBillPdf(bill) {
   const hline = (yy) => doc.line(L, yy, R, yy);
   const txt = (t, x, yy, o = {}) => doc.text(String(t), x, yy, o);
   doc.setLineWidth(0.3);
+  doc.setDrawColor(11, 31, 58);
 
   let y = TOP;
 
-  // ---- GSTIN | TAX INVOICE | PAN ----
+  // ---- GSTIN | TAX INVOICE | PAN (navy bar) ----
+  doc.setFillColor(11, 31, 58);
+  doc.rect(L, y, W, 6.5, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
+  doc.setTextColor(255, 255, 255);
   txt(`GSTIN:${COMPANY.gstin}`, L + 2, y + 4.5);
+  doc.setTextColor(245, 166, 35);
   txt('TAX INVOICE', L + W / 2, y + 4.5, { align: 'center' });
+  doc.setTextColor(255, 255, 255);
   txt(`PAN NO:${COMPANY.pan}`, R - 2, y + 4.5, { align: 'right' });
+  doc.setTextColor(0, 0, 0);
+  doc.setDrawColor(255, 255, 255);
   doc.line(L + W / 3, y, L + W / 3, y + 6.5);
   doc.line(R - W / 3, y, R - W / 3, y + 6.5);
+  doc.setDrawColor(11, 31, 58);
   y += 6.5;
-  hline(y);
 
   // ---- Company title ----
   doc.setFont('times', 'bolditalic');
   doc.setFontSize(24);
+  doc.setTextColor(11, 31, 58);
   txt(COMPANY.name, L + W / 2, y + 9, { align: 'center' });
   y += 11;
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(7);
+  doc.setTextColor(212, 136, 15);
   txt(COMPANY.tagline, L + W / 2, y + 2.5, { align: 'center' });
   const tagW = doc.getTextWidth(COMPANY.tagline);
+  doc.setDrawColor(245, 166, 35);
   doc.line(L + W / 2 - tagW / 2, y + 3.3, L + W / 2 + tagW / 2, y + 3.3);
+  doc.setDrawColor(11, 31, 58);
   y += 5.5;
 
   doc.setFontSize(10);
+  doc.setTextColor(11, 31, 58);
   txt(COMPANY.subtitle, L + W / 2, y + 3, { align: 'center' });
   y += 6;
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
+  doc.setTextColor(80, 90, 105);
   txt(COMPANY.address, L + W / 2, y + 2.5, { align: 'center' });
   y += 6;
   hline(y);
 
-  // ---- S.NO / DATE ----
+  // ---- S.NO / DATE (light amber row) ----
+  doc.setFillColor(253, 243, 221);
+  doc.rect(L, y, W, 7, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
+  doc.setTextColor(11, 31, 58);
   txt(`S.NO. ${bill.billNo}`, L + 2, y + 4.5);
   txt(`DATE:-${fmtDate(bill.createdAt)}`, R - 2, y + 4.5, { align: 'right' });
   y += 7;
   hline(y);
 
   // ---- Customer block ----
+  doc.setTextColor(30, 30, 30);
   doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   txt('M/S', L + 2, y + 4.5);
@@ -180,10 +198,13 @@ export async function buildBillPdf(bill) {
   y += 22;
   hline(y);
 
-  // ---- Table header ----
+  // ---- Table header (amber-tinted) ----
   const tableTop = y;
+  doc.setFillColor(253, 238, 205);
+  doc.rect(L, y, W, 9, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
+  doc.setTextColor(11, 31, 58);
   txt('DATE', L + 2, y + 4.5);
   txt('VEH', CX.veh + 2, y + 4.5);
   txt('NO.', CX.veh + 2, y + 8);
@@ -197,6 +218,7 @@ export async function buildBillPdf(bill) {
 
   // ---- Table rows ----
   doc.setFont('helvetica', 'normal');
+  doc.setTextColor(30, 30, 30);
   const putAmt = (v, yy) => {
     const a = splitAmt(v);
     if (a.rs) txt(a.rs, CX.p - 2, yy, { align: 'right' });
@@ -263,11 +285,19 @@ export async function buildBillPdf(bill) {
   // E.&O.E + terms
   txt('E.&O.E.', L + 60, footTop + 30, { align: 'center' });
   doc.setFontSize(7);
+  doc.setTextColor(80, 90, 105);
   txt('1.Amount not paid within 15day will bear interest@24%', L + 2, footTop + 35);
   txt('2.All disputer are subject to ranchi jurisdiction', L + 2, footTop + 39);
+  doc.setTextColor(30, 30, 30);
 
+  // "For." signature — bottom-right of the left panel
+  doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
-  txt('For.', R - 24, footTop + 38);
+  txt('For.', rightX - 6, footTop + 38, { align: 'right' });
+
+  // Total row highlight
+  doc.setFillColor(253, 243, 221);
+  doc.rect(rightX, footTop + 35, R - rightX, 7, 'F');
 
   // Right column mini-table
   doc.line(rightX, footTop, rightX, footTop + footH);
@@ -275,11 +305,13 @@ export async function buildBillPdf(bill) {
   for (let i = 1; i <= 5; i++) doc.line(rightX, footTop + i * 7, R, footTop + i * 7);
   hline(footTop + footH);
 
-  doc.setFontSize(7.5);
+  doc.setFontSize(6.8);
+  doc.setTextColor(11, 31, 58);
   const rf = (i, label, v, bold = false) => {
     const yy = footTop + i * 7 - 2.5;
     doc.setFont('helvetica', bold ? 'bold' : 'normal');
-    txt(label, rightX + 2, yy);
+    const lines = Array.isArray(label) ? label : [label];
+    lines.forEach((l, li) => txt(l, rightX + 2, yy - (lines.length - 1) * 2 + li * 3.4));
     if (v !== undefined && v !== '') {
       const a = splitAmt(v);
       txt(a.rs, R - 14, yy, { align: 'right' });
@@ -288,7 +320,7 @@ export async function buildBillPdf(bill) {
     doc.setFont('helvetica', 'normal');
   };
 
-  rf(1, 'TATAL TAXABLE VALUE OF GOODS AND SEVICE', bill.taxable);
+  rf(1, ['TATAL TAXABLE VALUE OF', 'GOODS AND SEVICE'], bill.taxable);
   rf(2, 'Add: CGST@...............');
   rf(3, 'Add : SGST @...............');
   rf(4, 'Add :IGST @...............');
