@@ -9,44 +9,64 @@ const vehicles = [
 const emptyForm = {
   customerName: '',
   customerPhone: '',
+  customerAddress: '',
+  customerGstin: '',
+  state: 'Ranchi',
+  stateCode: '20',
   vehicle: vehicles[0],
-  tripType: 'One Way',
-  pickup: '',
-  drop: '',
-  date: '',
-  returnDate: '',
-  distanceKm: '',
-  ratePerKm: '12',
-  extraCharges: '0',
-  discount: '0',
-  advancePaid: '0',
-  driverName: '',
-  driverPhone: '',
-  notes: '',
+  vehicleNo: '',
+  fromPlace: 'Ranchi',
+  toPlace: '',
+  startDate: '',
+  endDate: '',
+  days: '1',
+  ratePerDay: '1800',
+  totalKm: '',
+  mileage: '8',
+  fuelRate: '94',
+  foodingPerDay: '300',
+  tollParking: '0',
 };
+
+const round2 = (n) => Math.round(n * 100) / 100;
 
 export default function BillGenerator({ onBillCreated }) {
   const [form, setForm] = useState(emptyForm);
 
   const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const distance = Number(form.distanceKm) || 0;
-  const rate = Number(form.ratePerKm) || 0;
-  const extra = Number(form.extraCharges) || 0;
-  const disc = Number(form.discount) || 0;
-  const advance = Number(form.advancePaid) || 0;
-  const baseAmount = distance * rate;
-  const totalAmount = baseAmount + extra - disc;
-  const balanceDue = totalAmount - advance;
+  const days = Number(form.days) || 0;
+  const ratePerDay = Number(form.ratePerDay) || 0;
+  const totalKm = Number(form.totalKm) || 0;
+  const mileage = Number(form.mileage) || 1;
+  const fuelRate = Number(form.fuelRate) || 0;
+  const foodingPerDay = Number(form.foodingPerDay) || 0;
+  const toll = Number(form.tollParking) || 0;
+
+  const daysAmount = round2(days * ratePerDay);
+  const dieselLitres = round2(totalKm / mileage);
+  const dieselAmount = round2(dieselLitres * fuelRate);
+  const foodingAmount = round2(foodingPerDay * days);
+  const taxable = round2(daysAmount + dieselAmount + foodingAmount);
+  const total = round2(taxable + toll);
 
   const submit = (e) => {
     e.preventDefault();
     const bill = {
       ...form,
-      baseAmount,
-      totalAmount,
-      advancePaid: advance,
-      balanceDue,
+      days,
+      ratePerDay,
+      totalKm,
+      mileage,
+      fuelRate,
+      foodingPerDay,
+      tollParking: toll,
+      daysAmount,
+      dieselLitres,
+      dieselAmount,
+      foodingAmount,
+      taxable,
+      total,
       billNo: `RR-${Date.now().toString(36).toUpperCase()}`,
       createdAt: new Date().toISOString(),
     };
@@ -62,12 +82,32 @@ export default function BillGenerator({ onBillCreated }) {
           <legend>Customer Details</legend>
           <div className="bill-row">
             <div className="field">
-              <label>Customer Name</label>
-              <input name="customerName" value={form.customerName} onChange={update} required placeholder="Full name" />
+              <label>Company / Customer Name (M/S)</label>
+              <input name="customerName" value={form.customerName} onChange={update} required placeholder="e.g. MAHINDRA & MAHINDRA LTD" />
             </div>
             <div className="field">
               <label>Phone Number</label>
               <input name="customerPhone" value={form.customerPhone} onChange={update} required placeholder="10-digit number" />
+            </div>
+          </div>
+          <div className="bill-row">
+            <div className="field">
+              <label>Address</label>
+              <input name="customerAddress" value={form.customerAddress} onChange={update} placeholder="e.g. MAIN ROAD RANCHI 834001" />
+            </div>
+            <div className="field">
+              <label>Customer GSTIN (optional)</label>
+              <input name="customerGstin" value={form.customerGstin} onChange={update} placeholder="GSTIN if applicable" />
+            </div>
+          </div>
+          <div className="bill-row">
+            <div className="field">
+              <label>State</label>
+              <input name="state" value={form.state} onChange={update} />
+            </div>
+            <div className="field">
+              <label>State Code</label>
+              <input name="stateCode" value={form.stateCode} onChange={update} />
             </div>
           </div>
         </fieldset>
@@ -82,97 +122,80 @@ export default function BillGenerator({ onBillCreated }) {
               </select>
             </div>
             <div className="field">
-              <label>Trip Type</label>
-              <select name="tripType" value={form.tripType} onChange={update}>
-                <option>One Way</option>
-                <option>Round Trip</option>
-                <option>Local</option>
-                <option>Airport Transfer</option>
-                <option>Wedding</option>
-              </select>
+              <label>Vehicle No.</label>
+              <input name="vehicleNo" value={form.vehicleNo} onChange={update} required placeholder="e.g. JH01FE7949" />
             </div>
           </div>
           <div className="bill-row">
             <div className="field">
-              <label>Pickup Location</label>
-              <input name="pickup" value={form.pickup} onChange={update} required placeholder="Pickup address" />
+              <label>From</label>
+              <input name="fromPlace" value={form.fromPlace} onChange={update} required placeholder="e.g. Ranchi" />
             </div>
             <div className="field">
-              <label>Drop Location</label>
-              <input name="drop" value={form.drop} onChange={update} required placeholder="Drop address" />
+              <label>To</label>
+              <input name="toPlace" value={form.toPlace} onChange={update} required placeholder="e.g. Deoghar" />
             </div>
           </div>
           <div className="bill-row">
             <div className="field">
-              <label>Travel Date</label>
-              <input type="date" name="date" value={form.date} onChange={update} required />
+              <label>Start Date</label>
+              <input type="date" name="startDate" value={form.startDate} onChange={update} required />
             </div>
             <div className="field">
-              <label>Return Date (if round trip)</label>
-              <input type="date" name="returnDate" value={form.returnDate} onChange={update} />
+              <label>End Date</label>
+              <input type="date" name="endDate" value={form.endDate} onChange={update} />
             </div>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend>Pricing</legend>
+          <legend>Charges</legend>
           <div className="bill-row">
             <div className="field">
-              <label>Distance (km)</label>
-              <input type="number" name="distanceKm" value={form.distanceKm} onChange={update} required placeholder="Total km" />
+              <label>Days</label>
+              <input type="number" name="days" value={form.days} onChange={update} required min="1" />
             </div>
             <div className="field">
-              <label>Rate per km (₹)</label>
-              <input type="number" name="ratePerKm" value={form.ratePerKm} onChange={update} required />
+              <label>Rate per Day (₹)</label>
+              <input type="number" name="ratePerDay" value={form.ratePerDay} onChange={update} required />
             </div>
           </div>
           <div className="bill-row">
             <div className="field">
-              <label>Extra Charges (₹)</label>
-              <input type="number" name="extraCharges" value={form.extraCharges} onChange={update} placeholder="Tolls, parking, etc." />
+              <label>Total Km</label>
+              <input type="number" name="totalKm" value={form.totalKm} onChange={update} required placeholder="e.g. 878" />
             </div>
             <div className="field">
-              <label>Discount (₹)</label>
-              <input type="number" name="discount" value={form.discount} onChange={update} />
+              <label>Mileage (km/l)</label>
+              <input type="number" name="mileage" value={form.mileage} onChange={update} required />
             </div>
           </div>
           <div className="bill-row">
             <div className="field">
-              <label>Advance Paid (₹)</label>
-              <input type="number" name="advancePaid" value={form.advancePaid} onChange={update} />
+              <label>Fuel Rate (₹/l)</label>
+              <input type="number" name="fuelRate" value={form.fuelRate} onChange={update} required />
+            </div>
+            <div className="field">
+              <label>Fooding per Day (₹)</label>
+              <input type="number" name="foodingPerDay" value={form.foodingPerDay} onChange={update} />
+            </div>
+          </div>
+          <div className="bill-row">
+            <div className="field">
+              <label>Toll / Parking / State Tax (₹)</label>
+              <input type="number" name="tollParking" value={form.tollParking} onChange={update} />
             </div>
             <div className="field bill-summary-inline">
               <div className="bill-calc">
-                <span>Base: ₹{baseAmount.toLocaleString('en-IN')}</span>
-                <span>+ Extra: ₹{extra.toLocaleString('en-IN')}</span>
-                <span>- Discount: ₹{disc.toLocaleString('en-IN')}</span>
-                <strong>Total: ₹{totalAmount.toLocaleString('en-IN')}</strong>
-                <strong className={balanceDue > 0 ? 'text-red' : 'text-green'}>
-                  Balance: ₹{balanceDue.toLocaleString('en-IN')}
-                </strong>
+                <span>Days: {days} x ₹{ratePerDay} = ₹{daysAmount.toLocaleString('en-IN')}</span>
+                <span>Diesel: {totalKm}/{mileage} = {dieselLitres}L x ₹{fuelRate} = ₹{dieselAmount.toLocaleString('en-IN')}</span>
+                <span>Fooding: ₹{foodingAmount.toLocaleString('en-IN')}</span>
+                <span>Toll: ₹{toll.toLocaleString('en-IN')}</span>
+                <strong>Total: ₹{total.toLocaleString('en-IN')}</strong>
               </div>
             </div>
           </div>
         </fieldset>
-
-        <fieldset>
-          <legend>Driver (Optional)</legend>
-          <div className="bill-row">
-            <div className="field">
-              <label>Driver Name</label>
-              <input name="driverName" value={form.driverName} onChange={update} placeholder="Driver name" />
-            </div>
-            <div className="field">
-              <label>Driver Phone</label>
-              <input name="driverPhone" value={form.driverPhone} onChange={update} placeholder="Driver number" />
-            </div>
-          </div>
-        </fieldset>
-
-        <div className="field">
-          <label>Notes</label>
-          <textarea name="notes" value={form.notes} onChange={update} rows="2" placeholder="Any additional notes..." />
-        </div>
 
         <button type="submit" className="btn btn-primary bill-submit">
           Generate Bill

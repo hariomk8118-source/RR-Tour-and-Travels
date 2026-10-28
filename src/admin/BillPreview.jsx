@@ -25,7 +25,6 @@ export default function BillPreview({ bill, onClose }) {
       const { shareBillPdf } = await import('./pdf');
       const result = await shareBillPdf(bill);
       if (result === 'downloaded') {
-        // Desktop fallback: PDF downloaded, open WhatsApp text so user can attach it
         const phone = bill.customerPhone.replace(/\D/g, '');
         const text = `Your trip bill ${bill.billNo} from RR.Tour&Travels is ready. Please find the attached PDF.`;
         window.open(`${WHATSAPP_BASE}${phone}?text=${encodeURIComponent(text)}`, '_blank');
@@ -66,26 +65,22 @@ export default function BillPreview({ bill, onClose }) {
         <h4>Customer</h4>
         <div className="bp-row"><span>Name</span><span>{bill.customerName}</span></div>
         <div className="bp-row"><span>Phone</span><span>{bill.customerPhone}</span></div>
+        {bill.customerAddress && <div className="bp-row"><span>Address</span><span>{bill.customerAddress}</span></div>}
+        {bill.customerGstin && <div className="bp-row"><span>GSTIN</span><span>{bill.customerGstin}</span></div>}
 
         <h4>Trip</h4>
-        <div className="bp-row"><span>Vehicle</span><span>{bill.vehicle}</span></div>
-        <div className="bp-row"><span>Type</span><span>{bill.tripType}</span></div>
-        <div className="bp-row"><span>From</span><span>{bill.pickup}</span></div>
-        <div className="bp-row"><span>To</span><span>{bill.drop}</span></div>
-        <div className="bp-row"><span>Date</span><span>{formatDate(bill.date)}</span></div>
-        {bill.returnDate && <div className="bp-row"><span>Return</span><span>{formatDate(bill.returnDate)}</span></div>}
-        {bill.driverName && <div className="bp-row"><span>Driver</span><span>{bill.driverName} ({bill.driverPhone})</span></div>}
+        <div className="bp-row"><span>Vehicle</span><span>{bill.vehicle} ({bill.vehicleNo})</span></div>
+        <div className="bp-row"><span>Route</span><span>{bill.fromPlace} → {bill.toPlace}</span></div>
+        <div className="bp-row"><span>Dates</span><span>{formatDate(bill.startDate)}{bill.endDate ? ` → ${formatDate(bill.endDate)}` : ''}</span></div>
+        <div className="bp-row"><span>Days</span><span>{bill.days}</span></div>
+        <div className="bp-row"><span>Total Km</span><span>{bill.totalKm} km</span></div>
 
-        <h4>Pricing</h4>
-        <div className="bp-row"><span>{bill.distanceKm} km x ₹{bill.ratePerKm}</span><span>₹{Number(bill.baseAmount).toLocaleString('en-IN')}</span></div>
-        {Number(bill.extraCharges) > 0 && <div className="bp-row"><span>Extra Charges</span><span>₹{Number(bill.extraCharges).toLocaleString('en-IN')}</span></div>}
-        {Number(bill.discount) > 0 && <div className="bp-row"><span>Discount</span><span>-₹{Number(bill.discount).toLocaleString('en-IN')}</span></div>}
-        <div className="bp-row bp-total"><span>Total</span><span>₹{Number(bill.totalAmount).toLocaleString('en-IN')}</span></div>
-        <div className="bp-row"><span>Advance Paid</span><span>₹{Number(bill.advancePaid).toLocaleString('en-IN')}</span></div>
-        <div className={`bp-row bp-total ${Number(bill.balanceDue) > 0 ? 'text-red' : 'text-green'}`}>
-          <span>Balance Due</span><span>₹{Number(bill.balanceDue).toLocaleString('en-IN')}</span>
-        </div>
-        {bill.notes && <p className="bp-notes"><strong>Notes:</strong> {bill.notes}</p>}
+        <h4>Charges</h4>
+        <div className="bp-row"><span>Days {bill.days} x ₹{bill.ratePerDay}</span><span>₹{Number(bill.daysAmount).toLocaleString('en-IN')}</span></div>
+        <div className="bp-row"><span>Diesel {bill.dieselLitres}L x ₹{bill.fuelRate}</span><span>₹{Number(bill.dieselAmount).toLocaleString('en-IN')}</span></div>
+        <div className="bp-row"><span>Fooding {bill.days} x ₹{bill.foodingPerDay}</span><span>₹{Number(bill.foodingAmount).toLocaleString('en-IN')}</span></div>
+        {Number(bill.tollParking) > 0 && <div className="bp-row"><span>Toll / Parking</span><span>₹{Number(bill.tollParking).toLocaleString('en-IN')}</span></div>}
+        <div className="bp-row bp-total"><span>Total Amount</span><span>₹{Number(bill.total).toLocaleString('en-IN')}</span></div>
 
         {msg && <p className="bill-msg">{msg}</p>}
 
